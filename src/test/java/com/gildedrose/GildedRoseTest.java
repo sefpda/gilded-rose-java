@@ -81,24 +81,32 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void WhenUpdateQualityCalled_BrieQualityOver50_Not51() {
+    public void WhenUpdateQualityCalled_QualityOver50_Not51() {
         Item items[] = new Item[] {
-                new Item("Aged Brie", 10, 50)
+                new Item("Aged Brie", 10, 50),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 12, 50),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 4, 49)
         };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(50, items[0].quality);
+        assertEquals(50, items[1].quality);
+        assertEquals(50, items[2].quality);
     }
 
     // SellIn tests
     @Test
     public void WhenUpdateQualityCalled_SellIn_GoesDownByOne() throws Exception {
         Item items[] = new Item[] {
-                new Item("PreSellIn", 4, 4)
+                new Item("PreSellIn", 4, 4),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 4, 4),
+                new Item("Aged Brie", 10, 50)
         };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(3, items[0].sellIn);
+        assertEquals(3, items[1].sellIn);
+        assertEquals(9, items[2].sellIn);
     }
 
     @Test
@@ -141,7 +149,7 @@ public class GildedRoseTest {
     // Backstage Passes
 
     @Test
-    public void WhenUpdateQualityCalled_BackstagePass_IncreaseQualityByOne() throws Exception {
+    public void WhenUpdateQualityCalled_AndSellInIsGreaterThanTen_BackstagePass_IncreaseQualityByOne() throws Exception {
         Item items[] = new Item[] {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 11, 8)
         };
@@ -151,7 +159,7 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void WhenUpdateQualityCalled_BackstagePass_IncreaseQualityByTwo() throws Exception {
+    public void WhenUpdateQualityCalled_AndSellInIsTenOrLess_BackstagePass_IncreaseQualityByTwo() throws Exception {
         Item items[] = new Item[] {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 10, 8)
         };
@@ -161,7 +169,7 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void WhenUpdateQualityCalled_BackstagePass_IncreaseQualityByThree() throws Exception {
+    public void WhenUpdateQualityCalled_AndSellInIsFiveOrLess_BackstagePass_IncreaseQualityByThree() throws Exception {
         Item items[] = new Item[] {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 5, 8)
         };
@@ -171,7 +179,7 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void WhenUpdateQualityCalled_BackstagePass_QualityZeroAfterSellIn0() throws Exception {
+    public void WhenUpdateQualityCalled_WhenSellInIsZeroOrLess_BackstagePass_QualityIsZero() throws Exception {
         Item items[] = new Item[] {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 0, 8)
         };
