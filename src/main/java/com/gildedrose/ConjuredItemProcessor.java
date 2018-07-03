@@ -13,4 +13,8 @@ public class ConjuredItemProcessor extends BaseItemProcessor {
         }
     }
 
+    @Override
+    public boolean canProcess() {
+        return item.name.startsWith("Conjured");
+    }
 }

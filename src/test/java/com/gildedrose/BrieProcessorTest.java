@@ -42,6 +42,15 @@ public class BrieProcessorTest {
             assertEquals(50, item.quality);
         }
 
+
+        @Test
+        public void process_QualityNeverGoesBelowZero() {
+            Item item = new Item("Aged Brie", 5, -3);
+            BrieProcessor processor = new BrieProcessor(item);
+            processor.process();
+            assertEquals(1, item.quality);
+        }
+
     }
 
     public static class WhenSellIn_IsNegative {
@@ -54,6 +63,7 @@ public class BrieProcessorTest {
             item = new Item("Aged Brie", -1, 10);
             processor = new BrieProcessor(item);
         }
+
 
         @Test
         public void process_DecreasesSellIn() throws Exception {
@@ -76,5 +86,20 @@ public class BrieProcessorTest {
         }
     }
 
+    public static class CanProcessItem {
 
+        @Test
+        public void canProcess_ShouldBeTrue_ForAgedBrie() {
+            Item item = new Item("Aged Brie", -1, 49);
+            BrieProcessor processor = new BrieProcessor(item);
+            assertEquals(true, processor.canProcess());
+        }
+
+        @Test
+        public void canProcess_ShouldBeFalse_ForOtherItems() {
+            Item item = new Item("Old Brie", -1, 49);
+            BrieProcessor processor = new BrieProcessor(item);
+            assertEquals(false, processor.canProcess());
+        }
+    }
 }

@@ -13,4 +13,8 @@ public class BrieProcessor extends BaseItemProcessor {
         }
     }
 
+    @Override
+    public boolean canProcess() {
+        return item.name.equals("Aged Brie");
+    }
 }

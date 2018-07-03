@@ -41,4 +41,18 @@ public class BackstagePassProcessorTest {
         processor.process();
         assertEquals(0, item.quality);
     }
+
+    @Test
+    public void canProcess_ShouldBeTrue_WhenNameStartsWith_BackstagePass() {
+        Item item = new Item("Backstage passes to some concert", -1, 49);
+        BackstagePassProcessor processor = new BackstagePassProcessor(item);
+        assertEquals(true, processor.canProcess());
+    }
+
+    @Test
+    public void canProcess_ShouldBeFalse_ForAnyOtherItem() {
+        Item item = new Item("Old Brie", -1, 49);
+        BackstagePassProcessor processor = new BackstagePassProcessor(item);
+        assertEquals(false, processor.canProcess());
+    }
 }

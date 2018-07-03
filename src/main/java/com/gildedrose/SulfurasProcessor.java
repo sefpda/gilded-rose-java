@@ -7,8 +7,14 @@ public class SulfurasProcessor extends BaseItemProcessor {
     }
 
     protected void updateQuality() {
+        item.quality = 80;
     }
 
     protected void updateSellIn() {
+    }
+
+    @Override
+    public boolean canProcess() {
+        return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
 }

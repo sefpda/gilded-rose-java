@@ -138,11 +138,11 @@ public class GildedRoseTest {
         };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(5, items[0].quality);
+        assertEquals(80, items[0].quality);
         assertEquals(4, items[0].sellIn);
-        assertEquals(8, items[1].quality);
+        assertEquals(80, items[1].quality);
         assertEquals(0, items[1].sellIn);
-        assertEquals(0, items[2].quality);
+        assertEquals(80, items[2].quality);
         assertEquals(9, items[2].sellIn);
     }
 
@@ -203,9 +203,46 @@ public class GildedRoseTest {
 
     @Test
     public void ProcessorFactory_WithAConjuredItem_BuildsAConjuredItemProcessor() {
-        Item item = new Item("Conjured Mana Cake", 2, 8);
+        Item item = new Item("Conjured Thing", 2, 8);
         GildedRose app = new GildedRose(new Item[]{});
         BaseItemProcessor processor = app.buildProcessorFor(item);
         assertTrue(processor instanceof ConjuredItemProcessor);
+        assertEquals(processor.item, item);
+    }
+
+    @Test
+    public void ProcessorFactory_WithAStandardItem_BuildsAStandardItemProcessor() {
+        Item item = new Item("Standard", 10, 10);
+        GildedRose app = new GildedRose(new Item[] {});
+        BaseItemProcessor processor = app.buildProcessorFor(item);
+        assertTrue(processor instanceof StandardItemProcessor);
+        assertEquals(processor.item, item);
+    }
+
+    @Test
+    public void ProcessorFactory_WithABackstagePass_BuildsABackstagePassProcessor() {
+        Item item = new Item("Backstage passes To Anything", 10, 10);
+        GildedRose app = new GildedRose(new Item[] {});
+        BaseItemProcessor processor = app.buildProcessorFor(item);
+        assertTrue(processor instanceof BackstagePassProcessor);
+        assertEquals(processor.item, item);
+    }
+
+    @Test
+    public void ProcessorFactory_WithBrie_BuildsABrieProcessor() {
+        Item item = new Item("Aged Brie", 10, 10);
+        GildedRose app = new GildedRose(new Item[] {});
+        BaseItemProcessor processor = app.buildProcessorFor(item);
+        assertTrue(processor instanceof BrieProcessor);
+        assertEquals(processor.item, item);
+    }
+
+    @Test
+    public void ProcessorFactory_WithSulfuras_BuildsASulfurasProcessor() {
+        Item item = new Item("Sulfuras, Hand of Ragnaros", 10, 10);
+        GildedRose app = new GildedRose(new Item[] {});
+        BaseItemProcessor processor = app.buildProcessorFor(item);
+        assertTrue(processor instanceof SulfurasProcessor);
+        assertEquals(processor.item, item);
     }
 }

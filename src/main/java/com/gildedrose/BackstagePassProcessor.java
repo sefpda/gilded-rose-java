@@ -18,4 +18,13 @@ public class BackstagePassProcessor extends BaseItemProcessor {
             item.quality = 0;
         }
     }
+
+    @Override
+    public boolean canProcess() {
+        return item.name.startsWith("Backstage passes");
+    }
+
+    public static boolean canProcessClassMethod(Item item) {
+        return true;
+    }
 }

@@ -13,4 +13,9 @@ public class StandardItemProcessor extends BaseItemProcessor {
             decrementQualityBy(1);
         }
     }
+
+    @Override
+    public boolean canProcess() {
+        return true;
+    }
 }

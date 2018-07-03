@@ -6,6 +6,7 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Enclosed.class)
 public class StandardItemProcessorTest {
@@ -62,6 +63,24 @@ public class StandardItemProcessorTest {
     public static class MinQualityTests {
 
         @Test
+        public void process_QualityLessThanMin_QualityIsZero() throws Exception {
+            Item item = new Item("Item", 2, -2);
+            StandardItemProcessor processor = new StandardItemProcessor(item);
+            processor.process();
+            assertEquals(1, item.sellIn);
+            assertEquals(0, item.quality);
+        }
+
+        @Test
+        public void process_QualityGreaterThanMax_QualityIsAtMax() throws Exception {
+            Item item = new Item("Item", 2, 52);
+            StandardItemProcessor processor = new StandardItemProcessor(item);
+            processor.process();
+            assertEquals(1, item.sellIn);
+            assertEquals(49, item.quality);
+        }
+
+        @Test
         public void process_SellInPositive_MinQualityIsZero() throws Exception {
             Item item = new Item("Item", 2, 0);
             StandardItemProcessor processor = new StandardItemProcessor(item);
@@ -79,5 +98,12 @@ public class StandardItemProcessorTest {
         }
     }
 
+    public static class CanProcessTests {
 
+        @Test
+        public void canProcess_AlwaysTrue() {
+            StandardItemProcessor processor = new StandardItemProcessor(new Item("", 0, 0));
+            assertTrue(processor.canProcess());
+        }
+    }
 }

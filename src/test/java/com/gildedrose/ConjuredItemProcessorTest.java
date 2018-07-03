@@ -37,4 +37,19 @@ public class ConjuredItemProcessorTest {
         processor.process();
         assertEquals(0, item.quality);
     }
+
+    @Test
+    public void canProcessIsTrueForConjuredItems() {
+        Item item = new Item("Conjured thingy", -1, 3);
+        ConjuredItemProcessor processor = new ConjuredItemProcessor(item);
+        assertEquals(true, processor.canProcess());
+    }
+
+
+    @Test
+    public void canProcessIsFalseForNonConjuredItems() {
+        Item item = new Item("Any thingy", -1, 3);
+        ConjuredItemProcessor processor = new ConjuredItemProcessor(item);
+        assertEquals(false, processor.canProcess());
+    }
 }
