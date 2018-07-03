@@ -189,4 +189,23 @@ public class GildedRoseTest {
     }
 
 
+    // Conjured Item tests
+
+    @Test
+    public void WhenUpdateCalled_WithAConjuredItem_ItDegradeQualityFaster() {
+        Item items[] = new Item[] {
+                new Item("Conjured Mana Cake", 2, 8)
+        };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(6, items[0].quality);
+    }
+
+    @Test
+    public void ProcessorFactory_WithAConjuredItem_BuildsAConjuredItemProcessor() {
+        Item item = new Item("Conjured Mana Cake", 2, 8);
+        GildedRose app = new GildedRose(new Item[]{});
+        BaseItemProcessor processor = app.buildProcessorFor(item);
+        assertTrue(processor instanceof ConjuredItemProcessor);
+    }
 }

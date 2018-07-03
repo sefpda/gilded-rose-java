@@ -1,24 +1,16 @@
 package com.gildedrose;
 
-public class BrieProcessor {
-
-    Item item;
+public class BrieProcessor extends BaseItemProcessor {
 
     public BrieProcessor(Item item) {
-        this.item = item;
+        super(item);
     }
 
-    public void process() {
-        incrementQuality(item);
+    protected void updateQuality() {
+        incrementQualityWithinLimit();
         if(item.sellIn < 0) {
-            incrementQuality(item);
+            incrementQualityWithinLimit();
         }
-        item.sellIn--;
     }
 
-    private void incrementQuality(Item item) {
-        if(item.quality < 50) {
-            item.quality++;
-        }
-    }
 }

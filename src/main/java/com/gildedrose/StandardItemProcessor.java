@@ -1,24 +1,16 @@
 package com.gildedrose;
 
-public class StandardItemProcessor {
-
-    private Item item;
+public class StandardItemProcessor extends BaseItemProcessor {
 
     public StandardItemProcessor(Item item) {
-        this.item = item;
+        super(item);
     }
 
-    public void process() {
-        if (item.quality > 0) {
-            item.quality--;
-        }
+    protected void updateQuality() {
+        decrementQualityBy(1);
 
         if (item.sellIn <= 0) {
-            if (item.quality > 0) {
-                item.quality--;
-            }
+            decrementQualityBy(1);
         }
-
-        item.sellIn--;
     }
 }
